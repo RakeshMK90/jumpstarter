@@ -1,0 +1,40 @@
+# Jumpstarter MCP Server Container
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+RUN pip install uv
+
+# Create a non-root user first
+RUN useradd -m -u 1000 jumpstarter
+
+# Set working directory
+WORKDIR /app
+
+# Set fallback versions for all packages BEFORE copying files
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_JUMPSTARTER_MCP_SERVER=0.1.0
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_JUMPSTARTER=0.1.0
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_JUMPSTARTER_CLI=0.1.0
+ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_JUMPSTARTER_PROTOCOL=0.1.0
+
+# Copy the entire jumpstarter workspace including git metadata
+COPY . .
+# Ensure we have git metadata for version detection
+RUN if [ -d .git ]; then echo "Git directory found"; else echo "No git directory, using environment versions"; fi
+
+# Change ownership to jumpstarter user
+RUN chown -R jumpstarter:jumpstarter /app
+
+# Switch to non-root user
+USER jumpstarter
+
+# Sync dependencies for the workspace as the jumpstarter user
+RUN uv sync --all-packages
+
+# Expose the FastMCP server entry point
+ENTRYPOINT ["uv", "run", "--directory", "packages/jumpstarter-mcp-server", "jumpstarter-fastmcp"]

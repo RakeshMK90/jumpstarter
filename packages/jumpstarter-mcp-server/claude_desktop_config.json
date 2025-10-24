@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "jumpstarter": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/path/to/jumpstarter/packages/jumpstarter-mcp-server",
+        "jumpstarter-mcp"
+      ],
+      "env": {
+        "JUMPSTARTER_CLIENT_ENDPOINT": "grpc.jumpstarter.example.com:443",
+        "JUMPSTARTER_AUTH_TOKEN": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ..."
+      }
+    }
+  }
+}

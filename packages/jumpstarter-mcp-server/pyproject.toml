@@ -1,0 +1,48 @@
+[project]
+name = "jumpstarter-mcp-server"
+dynamic = ["version", "urls"]
+description = "MCP server for Jumpstarter hardware automation"
+authors = [
+    { name = "Rakesh Musalay", email = "rmusalay@redhat.com" },
+]
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+dependencies = [
+    "jumpstarter",
+    "jumpstarter-cli",
+    "fastmcp>=2.0.0",
+    "pydantic>=2.8.2",
+    "anyio>=4.4.0",
+    "click>=8.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.2",
+    "pytest-cov>=6.0.0",
+    "pytest-anyio>=0.0.0",
+    "pytest-asyncio>=0.0.0",
+]
+
+[project.scripts]
+jumpstarter-mcp = "jumpstarter_mcp_server.main:main_sync"
+jumpstarter-fastmcp = "jumpstarter_mcp_server.fastmcp_main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["jumpstarter_mcp_server"]
+
+[tool.hatch.metadata.hooks.vcs.urls]
+Homepage = "https://jumpstarter.dev"
+source_archive = "https://github.com/jumpstarter-dev/repo/archive/{commit_hash}.zip"
+
+[tool.hatch.version]
+source = "vcs"
+raw-options = { 'root' = '../../' }
+
+[build-system]
+requires = ["hatchling", "hatch-vcs", "hatch-pin-jumpstarter"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.hooks.pin_jumpstarter]
+name = "pin_jumpstarter"
