@@ -7,21 +7,21 @@ A Model Context Protocol (MCP) server built with **FastMCP** that provides acces
 This MCP server exposes Jumpstarter's core functionality as MCP tools, allowing AI assistants like Claude to interact with hardware testing infrastructure. Built on the **FastMCP framework** for enhanced reliability and performance.
 
 ### Key Features
-- 🚀 **FastMCP Framework**: Production-ready MCP implementation with improved error handling
-- 🔧 **Hardware Management**: Discover and lease hardware resources
-- 📊 **Real-time Status**: Monitor exporter and lease status
-- ⚡ **Live Integration**: Direct integration with Jumpstarter APIs
-- 🐳 **Containerized**: Ready for deployment with Podman/Docker
+-  **FastMCP Framework**: Production-ready MCP implementation with improved error handling
+-  **Hardware Management**: Discover and lease hardware resources
+-  **Real-time Status**: Monitor exporter and lease status
+-  **Live Integration**: Direct integration with Jumpstarter APIs
+- **Containerized**: Ready for deployment with Podman/Docker
 
 ## Current Status (PoC)
 
-✅ **Working Tools** (Production Ready):
+**Working Tools** (Production Ready):
 - `jumpstarter_get_config` - Get Jumpstarter configuration
 - `jumpstarter_list_exporters` - List available hardware exporters
 - `jumpstarter_list_leases` - List active hardware leases
 - `jumpstarter_create_lease` - Create new hardware leases
 
-🚧 **Additional Tools** (PoC Implementation):
+ **Additional Tools** (PoC Implementation):
 - Power control, serial console, storage flashing, SSH forwarding, and arbitrary j commands
 
 ## Architecture
